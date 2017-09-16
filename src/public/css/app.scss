@@ -1,0 +1,64 @@
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$default-bg: #EEE;
+$default-abg: #FFF;
+
+body {
+  background: $default-bg;
+  font-family: "Lato", "Open Sans", "Segoe UI", sans-serif;
+}
+
+.chat-container {
+  position: absolute;
+  margin: 0 10%;
+  width: 80%;
+  height: 100%;
+  background: $default-abg;
+  @include box-shadow(0 0 24px rgba(100, 100, 100, 0.1));
+  .chat-box {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 100%;
+
+    header {
+      background: #48F;
+      color: #FFF;
+      padding: 8px;
+      font-weight: bolder;
+    }
+
+    .chat-body {
+      flex: 1 1 auto;
+      padding: 8px;
+
+      .chat-message {
+        display: block;
+        float: left;
+        background: #EEE;
+        padding: 8px 12px;
+        border-radius: 2px;
+        clear: both;
+        margin-bottom: 12px;
+
+        .chat-meta{
+          font-weight: bolder;
+          font-size: 0.75em;
+          opacity:0.75;
+          margin-top:4px;
+        }
+      }
+      .chat-message-self {
+        float: right;
+        background: #38F;
+        color: #FFF;
+      }
+    }
+
+    .chat-form {
+      padding: 8px;
+    }
+
+  }
+
+}
