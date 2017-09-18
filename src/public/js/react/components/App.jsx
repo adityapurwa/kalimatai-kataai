@@ -1,5 +1,4 @@
 import React from "react";
-import ChatStatus from "./chat/ChatStatus";
 import ChatBox from "./chat/ChatBox";
 
 

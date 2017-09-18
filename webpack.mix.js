@@ -13,6 +13,7 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('public')
     .react('src/public/js/react-app.jsx', 'public/js')
+    .js('src/public/js/vue-app.js', 'public/js')
     .sass('src/public/css/app.scss', 'public/css')
     .disableNotifications();
 

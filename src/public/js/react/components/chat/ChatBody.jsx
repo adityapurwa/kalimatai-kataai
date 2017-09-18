@@ -20,10 +20,14 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(class ChatBody extends React.Component {
     render() {
         return (
-            <div className="chat-body">
+            <div className="chat-body" ref={el => this.body = el}>
                 {this.listMessages()}
             </div>
         )
+    }
+
+    componentDidUpdate(){
+        this.body.scrollTop = this.body.scrollHeight;
     }
 
     listMessages() {
@@ -31,13 +35,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(class ChatBody exten
             return buttons.map((button, index) => {
                 return (
                     <button type="button" className="btn btn-default btn-block" key={index}
-                            onClick={()=>this.props.setInput(button.text)}>
+                            onClick={() => this.props.setInput(button.text)}>
                         {button.text}
                     </button>
                 )
             });
         };
-        console.dir(this.props.messages);
         return this.props.messages.map((message, index) => {
             if (message.type === 'text') {
                 return (

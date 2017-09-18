@@ -1,7 +1,7 @@
 const readline = require('readline');
 
-class ChatRepl{
-    constructor(chatHandler){
+class ChatRepl {
+    constructor(chatHandler) {
         this.stdio = readline.createInterface({
             input: process.stdin,
             output: process.stdout
@@ -13,12 +13,14 @@ class ChatRepl{
         this.stdio.question('KalimatAI > ', (command) => {
             let safeCommand = command.trim();
             let typeIntent = /^type (.+)$/.exec(safeCommand);
+            let handled = false;
             if (typeIntent) {
                 this.chatHandler.sendServerMessage({
                     user: 'SERVER',
                     type: 'text',
                     content: typeIntent[1]
                 });
+                handled = true;
             }
             let buttonIntent = /^buttons (.+)$/.exec(safeCommand);
             if (buttonIntent) {
@@ -33,6 +35,11 @@ class ChatRepl{
                         }
                     })
                 });
+                handled = true;
+            }
+
+            if (!handled) {
+                console.log('KalimatAI > Unsupported command, try `type hello` or `buttons yes no`');
             }
             this.replCommand();
         });

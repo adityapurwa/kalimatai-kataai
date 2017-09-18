@@ -8375,6 +8375,7 @@ body {
           flex-direction: column;
   position: absolute;
   height: 100%;
+  width: 100%;
 }
 
 .chat-container .chat-box header {
@@ -8389,6 +8390,7 @@ body {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   padding: 8px;
+  overflow-y: scroll;
 }
 
 .chat-container .chat-box .chat-body .chat-message {

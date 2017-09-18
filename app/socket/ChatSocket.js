@@ -22,7 +22,14 @@ class ChatSocket {
     sendServerMessage(message) {
         this.io.emit('new_message', message);
         this.users.map((user) => {
-            console.log(user.id + ": got " + message.content);
+            if (message.type === 'text') {
+                console.log(user.id + ": got " + message.content);
+            }
+            else if (message.type === 'template') {
+                console.log(user.id + ": got buttons (" +
+                    message.items.reduce((prev, next) => prev.text + ', ' + next.text)
+                    + ")");
+            }
         });
         this.callAfterLog();
     }

@@ -20,6 +20,7 @@ body {
     flex-direction: column;
     position: absolute;
     height: 100%;
+    width:100%;
 
     header {
       background: #48F;
@@ -31,6 +32,8 @@ body {
     .chat-body {
       flex: 1 1 auto;
       padding: 8px;
+
+      overflow-y: scroll;
 
       .chat-message {
         display: block;
