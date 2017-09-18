@@ -32,6 +32,11 @@ WebPack configuration. If you need to recompile the assets,
 run `npm run <production|dev|watch>` and make sure you have
 the `devDependencies` of the project installed.
 
+### Switching from React to Vue
+
+The frontend is also implemented using Vue, you can open the
+`index-vue.html` file to access the Vue version of this project.
+
 ## Credits
 
 Aditya Purwa [<adityapurwa@windowslive.com>](mailto:adityapurwa@windowslive.com)
