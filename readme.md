@@ -12,7 +12,7 @@ You can run the project by simply installing the required
 packages using `npm install` (add `--only=production` if you 
 want production dependencies only) and running
 `node app/index.js` (make sure you are active on the project
-root directory). Make sure you have `node``
+root directory). Make sure you have `node`
 installed. **NOTE: ONLY TESTED ON v.6.10.0**.
 
 ### Running via Docker
