@@ -21,6 +21,10 @@ class ChatSocket {
 
     sendServerMessage(message) {
         this.io.emit('new_message', message);
+        this.users.map((user) => {
+            console.log(user.id + ": got " + message.content);
+        });
+        this.callAfterLog();
     }
 
     bind() {
@@ -41,8 +45,18 @@ class ChatSocket {
         this.callAfterLog();
     }
 
-    handleTypingPing(socket){
+    handleTypingPing(socket) {
         socket.broadcast.emit('ping_typing');
+    }
+
+    handleDisconnect(socket) {
+        let user = this.users.find((a) => {
+            return a.socket === socket;
+        });
+        let deleteIndex = this.users.findIndex(a => a === user);
+        this.users.splice(deleteIndex, 1);
+        console.log(user.id + ": is disconnected");
+        this.callAfterLog();
     }
 
     handleConnection(socket) {
@@ -54,6 +68,7 @@ class ChatSocket {
         socket.emit('id_assigned', userId);
         socket.on('send_message', this.handleMessageSent.bind(this, socket));
         socket.on('ping_typing', this.handleTypingPing.bind(this, socket));
+        socket.on('disconnect', this.handleDisconnect.bind(this, socket));
         console.log(userId + ': connected');
         this.callAfterLog();
 

@@ -1,52 +1,20 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const readline = require('readline');
 const app = express();
 const socketIo = require('socket.io');
 const ChatSocket = require('./socket/ChatSocket');
+const ChatRepl = require('./console/ChatRepl');
 
 const server = http.Server(app);
 const io = socketIo.listen(server);
 const chatHandler = new ChatSocket(io);
-
 app.use(express.static(path.join(path.dirname(__dirname), 'public')));
-server.listen(3000);
+server.listen(process.env.PORT || 8080);
 
-const stdio = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+console.log("KalimatAI Server attached @ " + (process.env.PORT || 8080));
 
-function replCommand() {
-    stdio.question('KalimatAI > ', (command) => {
-        let safeCommand = command.trim();
-        let typeIntent = /^type (.+)$/.exec(safeCommand);
-        if (typeIntent) {
-            chatHandler.sendServerMessage({
-                user: 'SERVER',
-                type: 'text',
-                content: typeIntent[1]
-            });
-        }
-        let buttonIntent = /^buttons (.+)$/.exec(safeCommand);
-        if (buttonIntent) {
-            let buttons = buttonIntent[1].split(' ');
-            chatHandler.sendServerMessage({
-                type: 'template',
-                user: 'SERVER',
-                items: buttons.map((text) => {
-                    return {
-                        item: "button",
-                        text
-                    }
-                })
-            });
-        }
-        replCommand();
-    });
-}
+const chatRepl = new ChatRepl(chatHandler);
+chatHandler.afterLog(chatRepl.replCommand.bind(chatRepl));
 
-chatHandler.afterLog(replCommand);
-
-replCommand();
+chatRepl.replCommand();
